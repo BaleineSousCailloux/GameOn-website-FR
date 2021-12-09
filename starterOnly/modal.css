@@ -321,6 +321,13 @@ input[data-error]::after {
 .close:after {
   transform: rotate(-45deg);
 }
+
+/* tentative effet de fermeture /////////////////////////*/
+.close:active {
+  animation: modalopen var(--modal-duration) reverse;
+}
+
+
 .btn-submit,
 .btn-signup {
   background: #fe142f;
