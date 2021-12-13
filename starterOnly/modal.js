@@ -12,52 +12,51 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 
+// Issue 4 option
+
+const endBtn = document.getElementById("end-btn");
+
+
 
 
 // launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+modalBtn[0].addEventListener("click", launchModal);
 
-// launch modal form
+  // launch modal form
+
 function launchModal() {
-  modalbg.style.display = "block";
+  successMessage.style.display = 'none';
+  endBtn.style.backgroundColor = '#fe142f';
+  endBtn.removeAttribute('disabled');
+  modalbg.style.display = 'block';
 }
+
+
 // Issue 1 : close modal function
+
 const crossToClose = document.getElementsByClassName("close"); //récupérer la class="close"
 console.log("btn de fermeture :", crossToClose); // vérifier ce que renvoie ma recherche
 function closeModal() {
-  modalbg.style.display = "none";
+  modalbg.style.display = 'none';
 }
+
 // Issue 1 option : delay to close
+
 let delayToClose;
-function closeDelay() {
+function manualCloseDelay() {
   delayToClose = setTimeout(closeModal, 120);
-  
 }
+// global validation option
+function autoCloseDelay() {
+  delayToClose = setTimeout(closeModal, 3000);
+}
+
 // Issue 1 : close modal form
-crossToClose[0].addEventListener('click', closeDelay);
-  
 
-/*/ Issue 2 : validations
-const firstName = document.getElementById("first").value;
-let firstNameIsValid = false;
-if (firstName = /^[A-Z|a-z|\-]{2,}$/g.test(value)) {
-  console.log("prénom OK");
-  } else {
-    console.log("prénom incorrect");
-  }
-function resultPrenomIsValid(value) {
-  return /^[A-Z|a-z|\-]{2,}$/g.test(value);
-};
-prenom.addEventListener("change", function(event) {
-  if (isValid(event.target.value)) {
-    console.log("prénom OK");
-  } else {
-    console.log("prénom incorrect");
-  }
-});
-// event.target.value.length >= 2*/
+crossToClose[0].addEventListener('click', manualCloseDelay);
 
-// Error Messages to HTML
+// Issue 3 : Error Messages to HTML
+
 const errorMessage0 = document.createElement("span");
 errorMessage0.style.display = 'none';
 errorMessage0.style.color = 'red';
@@ -95,23 +94,35 @@ errorMessage6.style.fontSize = '13px';
 const conditions = document.getElementById("conditions")
 conditions.appendChild(errorMessage6).textContent = "Vous devez accepter nos conditions générales.";
 
+//Issue 4 : success message
+
+const successMessage = document.createElement("span");
+successMessage.style.display = 'none';
+successMessage.style.color = 'green';
+successMessage.style.fontSize = '20px';
+successMessage.style.textAlign = 'center';
+const form = document.getElementById("form");
+form.appendChild(successMessage).textContent = "Merci pour votre participation !";
 
 // validation globale
-const form = document.getElementById("form");
-let firstName = document.getElementById("first").value;
-let lastName = document.getElementById("last").value;
-let email = document.getElementById("email").value;
-let birthDate = document.getElementById("birthdate").value;
-let quantity = document.getElementById("quantity").value;
-let radio = document.getElementsByClassName("checkbox-input");
-let checkConditions = document.getElementById("checkbox1");
 
 form.addEventListener("submit", function(event) {
   event.preventDefault();
 
+  let firstName = document.getElementById("first").value;
+  let lastName = document.getElementById("last").value;
+  let email = document.getElementById("email").value;
+  let birthDate = document.getElementById("birthdate").value;
+  let quantity = document.getElementById("quantity").value;
+  let radio = document.querySelector('input[name="location"]:checked')?.value;
+  let checkConditions = document.getElementById("checkbox1").checked;
+
+  //Issue 2 : data validations
+
   let firstNameIsValid = false;
-  if (firstName = /^[A-Z|a-z|\-]{2,}$/g.test(value)) {
+  if (/^[A-Z|a-z|\-]{2,}$/g.test(firstName)) {
     firstNameIsValid = true;
+    errorMessage0.style.display = 'none';
     console.log("prénom OK");
   } else {
     errorMessage0.style.display = 'block';
@@ -119,12 +130,73 @@ form.addEventListener("submit", function(event) {
   }
 
   let lastNameIsValid = false;
-  if (lastName = /^[A-Z|a-z|\-]{2,}$/g.test(value)) {
+  if (/^[A-Z|a-z|\-]{2,}$/g.test(lastName)) {
     lastNameIsValid = true;
+    errorMessage1.style.display = 'none';
     console.log("nom OK");
   } else {
     errorMessage1.style.display = 'block';
     console.log("nom incorrect");
   }
+
+  let emailIsValid = false;
+  if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email.trim().toLowerCase())) {
+    emailIsValid = true;
+    errorMessage2.style.display = 'none';
+    console.log("email OK");
+  } else {
+    errorMessage2.style.display = 'block';
+    console.log("email incorrect");
+  }
+
+  let birthDateIsValid = false;
+  if (/[^A-Z|a-z]$/g.test(birthDate)) {
+    birthDateIsValid = true;
+    errorMessage3.style.display = 'none';
+    console.log("date de naissance OK");
+  } else {
+    errorMessage3.style.display = 'block';
+    console.log("date de naissance incorrecte");
+  }
+
+  let quantityIsValid = false;
+  if (/^[0-9]{1,}$/g.test(quantity) && quantity <= 99) {
+    quantityIsValid = true;
+    errorMessage4.style.display = 'none';
+    console.log("nombre de tournois OK");
+  } else {
+    errorMessage4.style.display = 'block';
+    console.log("nombre de tournois absent");
+  }
+
+  let radioIsValid = false;
+  if (radio != null || (quantityIsValid = true && quantity == 0 && radio == null)) {
+    radioIsValid = true;
+    errorMessage5.style.display = 'none';
+    console.log("ville OK");
+  } else {
+    errorMessage5.style.display = 'block';
+    console.log("ville non indiquée");
+  }
+
+  let checkConditionsIsValid = false;
+  if (checkConditions == true) {
+    checkConditionsIsValid = true;
+    errorMessage6.style.display = 'none';
+    console.log("conditions générales OK");
+  } else {
+    errorMessage6.style.display = 'block';
+    console.log("conditions générales non acceptées");
+  }
+
+  let formIsValid = false;
+  if (firstNameIsValid == true && lastNameIsValid == true && emailIsValid == true && birthDateIsValid == true && quantityIsValid == true && radioIsValid == true && checkConditionsIsValid ==true) {
+    formIsValid = true;
+    autoCloseDelay();
+    successMessage.style.display = 'block';
+    endBtn.setAttribute('disabled', true);
+    endBtn.style.backgroundColor = 'grey';
+    form.reset();
+  };
 
 })
