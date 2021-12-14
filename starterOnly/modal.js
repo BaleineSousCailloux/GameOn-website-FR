@@ -12,19 +12,18 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 
-// Issue 4 option
+// Issue 4 option (afin d'agir sur ce bouton)
 
 const endBtn = document.getElementById("end-btn");
 
 
-
-
 // launch modal event
-modalBtn[0].addEventListener("click", launchModal);
+/*modalBtn.forEach(btn => btn.addEventListener("click", launchModal))*/
+modalBtn[0].addEventListener("click", launchModal); // simplification de la fonction car un seul modalBtn
 
-  // launch modal form
+// launch modal form
 
-function launchModal() {
+function launchModal() { // fonction améliorée pour "nettoyer" la modale en cas de soumission d'un deuxième formulaire
   successMessage.style.display = 'none';
   endBtn.style.backgroundColor = '#fe142f';
   endBtn.removeAttribute('disabled');
@@ -57,40 +56,37 @@ crossToClose[0].addEventListener('click', manualCloseDelay);
 
 // Issue 3 : Error Messages to HTML
 
+const styleErrorMessage = (element) => { // fonction générique pour permettre le chgt de style de tous les messages
+  element.style.display = 'none';
+  element.style.color = '#fe142f';
+  element.style.fontSize = '13px';
+};
+
 const errorMessage0 = document.createElement("span");
-errorMessage0.style.display = 'none';
-errorMessage0.style.color = 'red';
-errorMessage0.style.fontSize = '13px';
+styleErrorMessage(errorMessage0);
 formData[0].appendChild(errorMessage0).textContent = "Veuillez entrer 2 caractères ou plus pour le champ du Prénom.";
 const errorMessage1 = document.createElement("span");
-errorMessage1.style.display = 'none';
-errorMessage1.style.color = 'red';
-errorMessage1.style.fontSize = '13px';
+styleErrorMessage(errorMessage1);
 formData[1].appendChild(errorMessage1).textContent = "Veuillez entrer 2 caractères ou plus pour le champ du Nom.";
 const errorMessage2 = document.createElement("span");
-errorMessage2.style.display = 'none';
-errorMessage2.style.color = 'red';
-errorMessage2.style.fontSize = '13px';
+styleErrorMessage(errorMessage2);
 formData[2].appendChild(errorMessage2).textContent = "Veuillez entrer une adresse email valide.";
 const errorMessage3 = document.createElement("span");
-errorMessage3.style.display = 'none';
-errorMessage3.style.color = 'red';
-errorMessage3.style.fontSize = '13px';
+styleErrorMessage(errorMessage3);
 formData[3].appendChild(errorMessage3).textContent = "Vous devez entrer votre date de naissance.";
 const errorMessage4 = document.createElement("span");
-errorMessage4.style.display = 'none';
-errorMessage4.style.color = 'red';
-errorMessage4.style.fontSize = '13px';
+styleErrorMessage(errorMessage4);
 formData[4].appendChild(errorMessage4).textContent = "Vous devez saisir un nombre.";
 const errorMessage5 = document.createElement("span");
-errorMessage5.style.display = 'none';
-errorMessage5.style.color = 'red';
-errorMessage5.style.fontSize = '13px';
+styleErrorMessage(errorMessage5);
 formData[5].appendChild(errorMessage5).textContent = "Vous devez sélectionner au moins une ville.";
+
 const errorMessage6 = document.createElement("span");
-errorMessage6.style.display = 'none';
+styleErrorMessage(errorMessage6);
+/*errorMessage6.style.display = 'none';
 errorMessage6.style.color = 'red';
-errorMessage6.style.fontSize = '13px';
+errorMessage6.style.fontSize = '13px'; ////// amélioré par la fonction styleErrorMessage */
+
 const conditions = document.getElementById("conditions")
 conditions.appendChild(errorMessage6).textContent = "Vous devez accepter nos conditions générales.";
 
@@ -106,9 +102,10 @@ form.appendChild(successMessage).textContent = "Merci pour votre participation !
 
 // validation globale
 
-form.addEventListener("submit", function(event) {
-  event.preventDefault();
+form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'événement
+  event.preventDefault(); // supprimer le fonctionnement par défaut du btn submit
 
+  // récupérer l'ensemble des saisies utilisateur
   let firstName = document.getElementById("first").value;
   let lastName = document.getElementById("last").value;
   let email = document.getElementById("email").value;
@@ -123,9 +120,9 @@ form.addEventListener("submit", function(event) {
   if (/^[A-Z|a-z|\-]{2,}$/g.test(firstName)) {
     firstNameIsValid = true;
     errorMessage0.style.display = 'none';
-    console.log("prénom OK");
+    console.log("prénom OK"); // vérification console
   } else {
-    errorMessage0.style.display = 'block';
+    errorMessage0.style.display = 'block'; // appel du message d'erreur
     console.log("prénom incorrect");
   }
 
@@ -170,7 +167,7 @@ form.addEventListener("submit", function(event) {
   }
 
   let radioIsValid = false;
-  if (radio != null || (quantityIsValid = true && quantity == 0 && radio == null)) {
+  if (radio != null) {
     radioIsValid = true;
     errorMessage5.style.display = 'none';
     console.log("ville OK");
@@ -189,14 +186,14 @@ form.addEventListener("submit", function(event) {
     console.log("conditions générales non acceptées");
   }
 
-  let formIsValid = false;
-  if (firstNameIsValid == true && lastNameIsValid == true && emailIsValid == true && birthDateIsValid == true && quantityIsValid == true && radioIsValid == true && checkConditionsIsValid ==true) {
+  let formIsValid = false; // validation globale de la participation
+  if (firstNameIsValid == true && lastNameIsValid == true && emailIsValid == true && birthDateIsValid == true && quantityIsValid == true && radioIsValid == true && checkConditionsIsValid == true) {
     formIsValid = true;
-    autoCloseDelay();
+    autoCloseDelay(); // rappel de la fonction de clotûre de la modale automatique
     successMessage.style.display = 'block';
-    endBtn.setAttribute('disabled', true);
+    endBtn.setAttribute('disabled', true); // bloquer l'usage du bouton pour éviter les erreurs potentielles
     endBtn.style.backgroundColor = 'grey';
-    form.reset();
+    form.reset(); // vider le formulaire
   };
 
 })
