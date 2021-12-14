@@ -18,8 +18,7 @@ const endBtn = document.getElementById("end-btn");
 
 
 // launch modal event
-/*modalBtn.forEach(btn => btn.addEventListener("click", launchModal))*/
-modalBtn[0].addEventListener("click", launchModal); // simplification de la fonction car un seul modalBtn
+modalBtn.forEach(btn => btn.addEventListener("click", launchModal));
 
 // launch modal form
 
@@ -43,7 +42,7 @@ function closeModal() {
 
 let delayToClose;
 function manualCloseDelay() {
-  delayToClose = setTimeout(closeModal, 120);
+  delayToClose = setTimeout(closeModal, 500);
 }
 // global validation option
 function autoCloseDelay() {

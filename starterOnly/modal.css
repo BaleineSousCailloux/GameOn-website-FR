@@ -17,6 +17,7 @@ body {
   background-image: url("background.png");
   font-family: var(--font-default);
   font-size: 18px;
+  width: 100%;
   max-width: 1300px;
   margin: 0 auto;
 }
@@ -68,15 +69,14 @@ img {
   display: none;
 }
 
-@media screen and (max-width: 768px) {
+
+
+@media screen and (max-width: 842px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
     display: block;
   }
-}
-
-@media screen and (max-width: 768px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
@@ -88,18 +88,14 @@ img {
     display: block;
     text-align: left;
   }
+  /* suppression des lignes inutiles + changement max-width 768>842 ////////////////////////////*/
+  @media screen and (max-width: 540px) {
+    .topnav a.icon {
+      margin-top: -15px;
+    }
+  } 
 }
 
-
-
- @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
-  }
-} 
 
 main {
   font-size: 130%;
@@ -443,7 +439,7 @@ input[data-error]::after {
   z-index: 1;
 }
 .hero-headline {
-  font-size: 6rem;
+  font-size: 5rem;
   font-weight: normal;
   white-space: nowrap;
 }
@@ -467,6 +463,7 @@ input[data-error]::after {
 .hero-img img {
   width: 100%;
   height: 100%;
+  object-fit: cover; /* maintien des proportions image ///////////////*/
   display: block;
   padding: 0;
 }
@@ -485,7 +482,7 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) { /* changement de max-width 800>900 ////////*/
   .hero-section {
     display: block;
     box-shadow: unset;
@@ -521,6 +518,24 @@ footer {
   .copyrights {
     margin-top: 50px;
     text-align: center;
+  }
+  @media screen and (max-width: 540px) { /* ajout de cette section responsive nécessaire //////////////////////*/
+    .hero-section {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      max-width: 350px;
+    }
+    .hero-content {
+      min-width: 100%;
+      padding: 0;
+    }
+    .hero-headline {
+      width: 100%;
+      font-size: 4rem;
+      white-space: normal;
+    }
+    
   }
 }
 
