@@ -208,7 +208,7 @@ input {
   font-size: 20px;
   height: 48px;
 }
-.formData[data-error]::after {
+/*.formData[data-error]::after {
   content: attr(data-error);
   font-size: 0.4em;
   color: #e54858;
@@ -226,12 +226,12 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
-/* 
+
 input[data-error]::after {
     content: attr(data-error);
     font-size: 0.4em;
     color: red;
-} */
+} ////////////////////////////////// css inutile car gestion js*/
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -322,7 +322,7 @@ input[data-error]::after {
   transform: rotate(-45deg);
 }
 
-/* tentative effet de fermeture /////////////////////////*/
+/*effet de fermeture ////////////////////////////////////////////////////////////////////////*/
 .close:active {
   animation: modalopen var(--modal-duration) reverse;
 }

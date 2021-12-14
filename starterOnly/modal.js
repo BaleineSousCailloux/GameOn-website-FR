@@ -47,7 +47,7 @@ function manualCloseDelay() {
 }
 // global validation option
 function autoCloseDelay() {
-  delayToClose = setTimeout(closeModal, 3000);
+  delayToClose = setTimeout(closeModal, 3500);
 }
 
 // Issue 1 : close modal form
@@ -64,10 +64,10 @@ const styleErrorMessage = (element) => { // fonction générique pour permettre 
 
 const errorMessage0 = document.createElement("span");
 styleErrorMessage(errorMessage0);
-formData[0].appendChild(errorMessage0).textContent = "Veuillez entrer 2 caractères ou plus pour le champ du Prénom.";
+formData[0].appendChild(errorMessage0).textContent = "Prénom absent ou invalide.";
 const errorMessage1 = document.createElement("span");
 styleErrorMessage(errorMessage1);
-formData[1].appendChild(errorMessage1).textContent = "Veuillez entrer 2 caractères ou plus pour le champ du Nom.";
+formData[1].appendChild(errorMessage1).textContent = "Nom absent ou invalide.";
 const errorMessage2 = document.createElement("span");
 styleErrorMessage(errorMessage2);
 formData[2].appendChild(errorMessage2).textContent = "Veuillez entrer une adresse email valide.";
@@ -76,10 +76,10 @@ styleErrorMessage(errorMessage3);
 formData[3].appendChild(errorMessage3).textContent = "Vous devez entrer votre date de naissance.";
 const errorMessage4 = document.createElement("span");
 styleErrorMessage(errorMessage4);
-formData[4].appendChild(errorMessage4).textContent = "Vous devez saisir un nombre.";
+formData[4].appendChild(errorMessage4).textContent = "Vous devez saisir un nombre cohérent.";
 const errorMessage5 = document.createElement("span");
 styleErrorMessage(errorMessage5);
-formData[5].appendChild(errorMessage5).textContent = "Vous devez sélectionner au moins une ville.";
+formData[5].appendChild(errorMessage5).textContent = "Vous devez indiquer la ville de participation.";
 
 const errorMessage6 = document.createElement("span");
 styleErrorMessage(errorMessage6);
@@ -88,7 +88,7 @@ errorMessage6.style.color = 'red';
 errorMessage6.style.fontSize = '13px'; ////// amélioré par la fonction styleErrorMessage */
 
 const conditions = document.getElementById("conditions")
-conditions.appendChild(errorMessage6).textContent = "Vous devez accepter nos conditions générales.";
+conditions.appendChild(errorMessage6).textContent = "Vous devez accepter les conditions générales.";
 
 //Issue 4 : success message
 
@@ -98,7 +98,7 @@ successMessage.style.color = 'green';
 successMessage.style.fontSize = '20px';
 successMessage.style.textAlign = 'center';
 const form = document.getElementById("form");
-form.appendChild(successMessage).textContent = "Merci pour votre participation !";
+form.appendChild(successMessage).textContent = "Merci ! Votre demande de participation est bien enregistrée.";
 
 // validation globale
 
