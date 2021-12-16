@@ -13,7 +13,7 @@
 <body>
   <div class="topnav" id="myTopnav">
     <div class="header-logo">
-      <img alt="logo" src="Logo.png" width="auto" height="auto" />
+      <img alt="logo" src="Logo.png" />
     </div>
     <div class="main-navbar">
 
@@ -23,10 +23,10 @@
       <a href="#"><span>Contact</span></a>
       <a href="#"><span>Évènements passés</span></a>
       <a href="javascript:void(0);" class="icon" onclick="editNav()">
-        <i class="fa fa-bars"></i>
+        <span class="fa fa-bars"></span> <!-- balise span plutôt que i pour validations -->
+        <span class="description">Bouton de menu à déployer</span> <!-- texte nécessaire pour balise a -->
       </a>
     </div>
-  </div>
   </div>
   <main>
     <div class="hero-section">
@@ -59,12 +59,12 @@
             <div class="formData">
               <label for="first">Prénom</label><br>
               <input class="text-control" type="text" id="first" name="first" /><br>
-              <!-- suppression minlenghth pour contrôle en JS -->
+              <!-- suppression minlength pour contrôle en JS -->
             </div>
             <div class="formData">
               <label for="last">Nom</label><br>
               <input class="text-control" type="text" id="last" name="last" /><br>
-              <!-- suppression minlenghth pour contrôle en JS -->
+              <!-- suppression minlength pour contrôle en JS -->
             </div>
             <div class="formData">
               <label for="email">E-mail</label><br>
@@ -82,7 +82,8 @@
             </div> <!-- suppression min et max pour contrôle en JS -->
             <!-- required non utilisé pour contrôle en JS -->
             <p class="text-label">Vous souhaitez participer à l'évènement de...</p> <!-- clarification ux -->
-            <div class="formData">
+            <fieldset class="formData fieldset">
+              <!-- balise fieldset pour WCAG -->
               <input class="checkbox-input" type="radio" id="location1" name="location" value="New York" />
               <label class="checkbox-label" for="location1">
                 <span class="checkbox-icon"></span>
@@ -107,7 +108,7 @@
               <label class="checkbox-label" for="location6">
                 <span class="checkbox-icon"></span>
                 Portland</label>
-            </div>
+            </fieldset>
 
             <div class="formData">
               <input class="checkbox-input" type="checkbox" id="checkbox1" />
@@ -125,7 +126,7 @@
               </label>
               <br>
             </div>
-            <input id="end-btn" class="btn-submit" type="submit" class="button" value="C'est parti" />
+            <input id="end-btn" class="btn-submit button" type="submit" value="C'est parti" />
             <!-- ajout id pour simplification de recherche en JS -->
           </form>
         </div>

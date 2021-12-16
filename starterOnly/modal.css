@@ -30,7 +30,12 @@ p {
 img {
   padding-right: 1rem;
 }
-
+.description {
+  display: none;
+}
+.fieldset {
+  border: none;
+}
 .topnav {
   overflow: hidden;
   margin: 3.5%;

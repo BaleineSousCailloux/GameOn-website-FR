@@ -72,7 +72,7 @@ styleErrorMessage(errorMessage2);
 formData[2].appendChild(errorMessage2).textContent = "Veuillez entrer une adresse email valide.";
 const errorMessage3 = document.createElement("span");
 styleErrorMessage(errorMessage3);
-formData[3].appendChild(errorMessage3).textContent = "Vous devez entrer votre date de naissance.";
+formData[3].appendChild(errorMessage3).textContent = "Vous devez avoir plus de 12 ans, et être vivant !";
 const errorMessage4 = document.createElement("span");
 styleErrorMessage(errorMessage4);
 formData[4].appendChild(errorMessage4).textContent = "Vous devez saisir un nombre cohérent.";
@@ -84,7 +84,7 @@ const errorMessage6 = document.createElement("span");
 styleErrorMessage(errorMessage6);
 /*errorMessage6.style.display = 'none';
 errorMessage6.style.color = 'red';
-errorMessage6.style.fontSize = '13px'; ////// amélioré par la fonction styleErrorMessage */
+errorMessage6.style.fontSize = '13px'; ////// amélioré par la fonction styleErrorMessage = dry */
 
 const conditions = document.getElementById("conditions")
 conditions.appendChild(errorMessage6).textContent = "Vous devez accepter les conditions générales.";
@@ -98,6 +98,20 @@ successMessage.style.fontSize = '20px';
 successMessage.style.textAlign = 'center';
 const form = document.getElementById("form");
 form.appendChild(successMessage).textContent = "Merci ! Votre demande de participation est bien enregistrée.";
+
+// Issue 2 : option gestion de l'âge
+// récupération date du jour et formatage nécesssaire
+let date = new Date();
+function dateFormated(chain) {
+  let newDate = new Date(chain).toLocaleDateString("fr-FR", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric"
+  })
+  return newDate;
+};
+let today = dateFormated(date);
+console.log(today);
 
 // validation globale
 
@@ -113,6 +127,9 @@ form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'évé
   let radio = document.querySelector('input[name="location"]:checked')?.value;
   let checkConditions = document.getElementById("checkbox1").checked;
 
+  console.log(birthDate);
+  let diffAge = (date - new Date(birthDate)) / (1000 * 60 * 60 * 24 * 365);
+  console.log(diffAge);
   //Issue 2 : data validations
 
   let firstNameIsValid = false;
@@ -146,7 +163,7 @@ form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'évé
   }
 
   let birthDateIsValid = false;
-  if (/[^A-Z|a-z]$/g.test(birthDate)) {
+  if (diffAge >= 12 && diffAge <= 120) {
     birthDateIsValid = true;
     errorMessage3.style.display = 'none';
     console.log("date de naissance OK");
@@ -186,7 +203,7 @@ form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'évé
   }
 
   let formIsValid = false; // validation globale de la participation
-  if (firstNameIsValid == true && lastNameIsValid == true && emailIsValid == true && birthDateIsValid == true && quantityIsValid == true && radioIsValid == true && checkConditionsIsValid == true) {
+  if (firstNameIsValid && lastNameIsValid && emailIsValid && birthDateIsValid && quantityIsValid && radioIsValid && checkConditionsIsValid) {
     formIsValid = true;
     autoCloseDelay(); // rappel de la fonction de clotûre de la modale automatique
     successMessage.style.display = 'block';
@@ -194,5 +211,6 @@ form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'évé
     endBtn.style.backgroundColor = 'grey';
     form.reset(); // vider le formulaire
   };
+
 
 })
