@@ -128,11 +128,11 @@ form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'évé
   let checkConditions = document.getElementById("checkbox1").checked;
 
   console.log(birthDate);
-  let diffAge = (date - new Date(birthDate)) / (1000 * 60 * 60 * 24 * 365);
+  let diffAge = (date - new Date(birthDate)) / (1000 * 60 * 60 * 24 * 365.25);
   console.log(diffAge);
   //Issue 2 : data validations
 
-  let firstNameIsValid = false;
+  let firstNameIsValid = false; // au moins 2 caractères, seuls les lettres et les - sont acceptés
   if (/^[A-Z|a-z|\-]{2,}$/g.test(firstName)) {
     firstNameIsValid = true;
     errorMessage0.style.display = 'none';
@@ -142,7 +142,7 @@ form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'évé
     console.log("prénom incorrect");
   }
 
-  let lastNameIsValid = false;
+  let lastNameIsValid = false; // au moins 2 caractères, seuls les lettres et les - sont acceptés
   if (/^[A-Z|a-z|\-]{2,}$/g.test(lastName)) {
     lastNameIsValid = true;
     errorMessage1.style.display = 'none';
@@ -152,7 +152,7 @@ form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'évé
     console.log("nom incorrect");
   }
 
-  let emailIsValid = false;
+  let emailIsValid = false; // regex trouvée sur internet, mais déjà géré automatiquement par le html
   if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email.trim().toLowerCase())) {
     emailIsValid = true;
     errorMessage2.style.display = 'none';
@@ -162,7 +162,7 @@ form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'évé
     console.log("email incorrect");
   }
 
-  let birthDateIsValid = false;
+  let birthDateIsValid = false; // en plus du contrôle auto par le html, vérification de l'âge
   if (diffAge >= 12 && diffAge <= 120) {
     birthDateIsValid = true;
     errorMessage3.style.display = 'none';
@@ -172,7 +172,7 @@ form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'évé
     console.log("date de naissance incorrecte");
   }
 
-  let quantityIsValid = false;
+  let quantityIsValid = false; // un nombre est indiqué, entre 0 et 99
   if (/^[0-9]{1,}$/g.test(quantity) && quantity <= 99) {
     quantityIsValid = true;
     errorMessage4.style.display = 'none';
@@ -182,7 +182,7 @@ form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'évé
     console.log("nombre de tournois absent");
   }
 
-  let radioIsValid = false;
+  let radioIsValid = false; //vérification de sélection d'une ville
   if (radio != null) {
     radioIsValid = true;
     errorMessage5.style.display = 'none';
@@ -192,7 +192,7 @@ form.addEventListener("submit", function (event) { // ouvrir l'écouteur d'évé
     console.log("ville non indiquée");
   }
 
-  let checkConditionsIsValid = false;
+  let checkConditionsIsValid = false; // vérification acceptations CG
   if (checkConditions == true) {
     checkConditionsIsValid = true;
     errorMessage6.style.display = 'none';
